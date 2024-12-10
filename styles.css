@@ -282,6 +282,7 @@
     color: var(--color-light-gray);
   }
   
+
   p {
     margin-block: 0;
   }
@@ -323,6 +324,33 @@
   .title-medium {
     font-size: clamp(20px, 2.08vw, 40px);
     line-height: 1.3;
+    color: var(--color-light);
+  }
+  .backdrop-title{
+    position: relative;
+    z-index: 2;
+  }
+  .backdrop-title::before{
+    content: '';
+    display: block;
+
+    position: absolute;
+    right: calc(100% + 8px);
+    width: 26px;
+    aspect-ratio: 1;
+    background: url('./icons/plus.svg') center/contain no-repeat ;
+  }
+  .backdrop-title::after{
+    content: attr(data-title);
+    position: absolute;
+    z-index: -1;
+    top: -0.45em;
+    left: -0.6em;
+    color: transparent;
+    -webkit-text-stroke:1px var(--color-light-gray);
+    text-stroke:1px var(--color-light-gray);
+    font-size: 2.8em;
+    font-family: var(--font-family-accent);
   }
   
   .title-big {
@@ -336,41 +364,8 @@
     text-align: center;
     color: var(--color-light);
   }
+
   
-  .backdrop-title {
-    position: relative;
-    z-index: 2;
-  }
-  
-  .backdrop-title::before {
-    content: '';
-    display: block;
-    position: absolute;
-    right: calc(100% + 8px);
-    width: 26px;
-    aspect-ratio: 1;
-    background: url('./icons/plus.svg') center/contain no-repeat;
-  }
-  
-  .backdrop-title::after {
-    content: attr(data-title);
-    position: absolute;
-    z-index: -1;
-    top: -0.3em;
-    left: -0.6em;
-    font-family: var(--font-family-accent);
-    font-size: 2.8em;
-    line-height: 1;
-    color: transparent;
-    -webkit-text-stroke: 1px var(--color-light-gray);
-    text-stroke: 1px var(--color-light-gray);
-  }
-  
-  .backdrop-title.centered::after {
-    top: -0.25em;
-    left: 50%;
-    translate: -50% 0;
-  }
   
   .button {
     display: inline-flex;
@@ -391,7 +386,28 @@
 .button:hover{
     background-color: var(--color-light);
 }
-
+.button.transparent{
+  position: relative;
+  height: var(--input-height);
+  padding-left: 31px;
+  padding-right: 80px;
+  background-color: transparent;
+  border: var(--border);
+}
+.button.transparent::after{
+  content: '';
+  height: 100%;
+  position: absolute;
+  right: 0;
+  aspect-ratio: 1;
+  background: url('./icons/arrow-top-right.svg') center/70% no-repeat;
+  border: var(--border);
+  border-radius: 50%;
+}
+.button.transparent:hover{
+  color: var(--color-dark);
+  background-color: var(--color-light-gray);
+}
 .header {
     display: flex;
     justify-content: space-between;
@@ -533,7 +549,53 @@
   border-color: var(--color-light-gray);
 }
 
+.motivation-item:nth-child(even){
+  background-color: var(--color-dark-alernate);
+}
+
+.motivation-item:nth-child(even) .motivation-card{
+  flex-direction: row-reverse;
+}
+.motivation-card-image{
+  margin-bottom: -60px;
+}
+.motivation-card-body{
+  padding-left: 35px;
+}
+
+.motivation-card-title:no(:last-child){
+  margin-bottom: 14px;
+}
+
+.motivation-card-description{
+  max-width: 400px;
+}
+.motivation-card-description:not(:last-child){
+  margin-bottom: 37px;
+}
+.motivation-card{
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  column-gap: clamp(30px, 10.42vw, 200px);
+}
+
+@media (max-width:1919px){
+  .motivation-card-image{
+    margin-block: -20px;
+    height: auto;
+  }
+}
+
  @media (max-width:1024px) {
+  .motivation-card-image{
+    max-width: 30%;
+    height: auto;
+    margin-block: 0;
+  }
+  .motivation-card{
+    padding-block: 50px;
+  }
     .header{
         flex-wrap: wrap;
         padding-top: 20px;
@@ -559,25 +621,44 @@
 
 
  @media (max-width:767px) {
+
     .button{
-        padding-inline:18px;
-    }
-    .header{
-        padding-top: 10px;
-    }
-    .header-menu-list{
-        column-gap: 25px;
-    }
-    .header-menu-link{
-        height: 32px;
-    }
-    .header-actions{
-        column-gap: 15px;
-    }
-    .banner-info::before{
-      margin-right: 10px;
-    }
-    .banner-info{
-      margin-bottom: 5px;
-    }
+      padding-inline:18px;
+  }
+  .header{
+      padding-top: 10px;
+  }
+  .header-menu-list{
+      column-gap: 25px;
+  }
+  .header-menu-link{
+      height: 32px;
+  }
+  .header-actions{
+      column-gap: 15px;
+  }
+  .banner-info::before{
+    margin-right: 10px;
+  }
+  .banner-info{
+    margin-bottom: 5px;
+  }
+
+  .motivation-card{
+    padding-block: 30px;
+    row-gap: 30px;
+  }
+
+  .motivation-card,
+  .motivation-item:nth-child(even) .motivation-card{
+      flex-direction: column-reverse;
+  }
+  .motivation-card-image{
+      max-width: 60%;
+  }
+  .motivation-card-description:not(:last-child){
+    margin-bottom: 20px;
+  }
+   
+
  }
